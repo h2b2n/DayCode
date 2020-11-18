@@ -59,13 +59,13 @@
 # Lecture 9 : Understanding Experimental Data
 #### 1. Key Concepts
 > Given gathered data, develop theory and design a computation. 
->> Firstly, plot the data by using pylab
->> Secondly, fit curves to Data 
->>        A. Objective Function 
->>        B. Find the curve that minimizes the sum of the vertical distances.
->>        That's because we want to predict dependent Y value for given independent X value. The vertical distance indicates error in the prediction. Thus, minimize the least squares of objective function, equal to minimize the variance. 
->>        Then how to ? 
->>        Linear Regression to find a polynomial representation with pylab.ployfit .
+>> Firstly, plot the data by using pylab  
+>> Secondly, fit curves to Data  
+>>        A. Objective Function  
+>>        B. Find the curve that minimizes the sum of the vertical distances.  
+>>        That's because we want to predict dependent Y value for given independent X value. The vertical distance indicates error in the prediction. Thus, minimize the least squares of objective function, equal to minimize the variance.  
+>>        Then how to ?  
+>>        Linear Regression to find a polynomial representation with pylab.ployfit .  
 ```python 
   def fitData(fileName) :
     xVals, yVals = getData(fileName)
