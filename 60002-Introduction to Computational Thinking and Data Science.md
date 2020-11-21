@@ -1,5 +1,5 @@
 # LECTURE 6 : Monte Carlos Simulation
-#### 1. Key Concepts
+#### 1. Key Concepts  
 > popularity  
 > sample  
 > variance  
@@ -7,13 +7,11 @@
 > law of large numbers <-> gambler's fallacy  
 > regession to the mean  
 > PDF(Probability Density Function)  
-
-
 #### 2. Additional Reading
 > :https://machinelearningmastery.com/monte-carlo-sampling-for-probability/  
 > :https://www.investopedia.com/terms/m/montecarlosimulation.asp  
 
-#### 3. Useful Functions 
+#### 3. Useful Functions  
 ```python
   import numpy as np
   from scipy import stats
@@ -31,7 +29,7 @@
 
 # Lecture 7 : Confidence Intervals
 #### 1. Key Concepts
-> Assumptions underlying Empirical Rule, the mean estimation error is zero.
+###### Assumptions underlying Empirical Rule, the mean estimation error is zero.
 ```python
   random.hauss(0,100)
   # or PDF -  derivative of cumulative distribution function
@@ -58,7 +56,7 @@
 
 # Lecture 9 : Understanding Experimental Data
 #### 1. Key Concepts
-> Given gathered data, develop theory and design a computation.  
+###### Given gathered data, develop theory and design a computation.  
 > Firstly, plot the data by using pylab  
 > Secondly, fit curves to Data  
 >>        A. Objective Function  
@@ -78,15 +76,27 @@
     model = pylab.polyfit(xVals, yVals,1)
     pylab.plot(xVals, pylab.polyval(model, xVals), 'g', label = 'Linear fit, k= '+ str(round(1/model[0],5)))    
 ```
->> Extra Reading on Function 'polyval' : https://dellwindowsreinstallationguide.com/python-numpy-and-matplotlib-curve-fitting-using-polyfit-and-polyval/
-> Criteria to measure how good a model is.  
+>> Extra Reading on Function 'polyval' :  
+>> https://dellwindowsreinstallationguide.com/python-numpy-and-matplotlib-curve-fitting-using-polyfit-and-polyval/  
+###### Criteria to measure how good a model is.  
 > 1. Comparing to each other by using function 'aveMeanSquareError(yVals, estYVals)'  
-> 2. R-squared, coefficient of determination, to get a sense of absolute goodness of fit.
+> 2. R-squared, coefficient of determination, to get a sense of absolute goodness of fit.  
 ```python 
   def RSquared(observed, predicted) :
     error = ((predicted - observed)**2).sum()
     meanError = error/len(observed)
     return 1-(meanError/numpy.var(observed))
     # considering R-square = SSE/variance 
+    # Errors in estimates / variability in measured data 
 ```
 >> 0 < R-Square < 1 relating to the realtionship between the values predicted by the model and actual data.  
+
+# Lecture 10. (cont.) 
+#### 1. Key Concepts  
+###### Training and Test error 
+> Training Error: The classification error of a model *on the same data, called trainging data.*  
+> Test Error: The classification error calculated by *another data, test dataset,* which have the y-values as well.      
+> https://rapidminer.com/blog/validate-models-training-test-error/  
+###### Cross Validate : generate models using one dataset and use it on another dataset  
+> To get how the model was validated
+> When fitting the one training data with noise and non-perfction, we can face over-fitting.  
