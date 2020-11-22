@@ -100,3 +100,35 @@
 ###### Cross Validate : generate models using one dataset and use it on another dataset  
 > To get how the model was validated
 > When fitting the one training data with noise and non-perfction, we can face over-fitting.  
+###### Leave-one-out Cross Validation - K-fold
+> repeating random sampling
+```python 
+  def splitData(xVals, yVals) :
+    toTrain = random.sample(range(len(xVals)), len(xVals)//2)
+    trainX, trainY, testX, testY = [], [], [], []
+    for i in range(len(xVals)):
+      if i in toTrain :
+        trainX.append(xVals[i])
+        trainY.append(yVals[i])
+      else :
+        testX.append(xVals[i])
+        testY.append(yVlas[i])
+    return trainX, trainY, testX, testY
+  
+  for f in range(numSubsets) :
+    trainX, trainY, testX, testY = splitData(xVals, yVals)
+    for d in dimensions :
+      model = pylab.polyfit(trainX, trainY, d)
+      train_estYvals = pylab.polyval(model, trainX)
+      test_estYvals = pylab.polyval(model, testX)
+      train_rSquared[d].append(rSquared(trainY, train_estYvals))
+      test_rSquared[d].append(rSquared(testY, test_estYvals))
+  
+  for d in dimensions :
+    mean = round(sum(test_rSquareds[d])/len(test_rSquared[d]),4)
+    sd = round(numpy.std(rSquared[d], 4)    
+```
+> which line explains better than the other?  
+> Highest average r-squared  
+> Smallest deviation across trials  
+> Simplest model  
