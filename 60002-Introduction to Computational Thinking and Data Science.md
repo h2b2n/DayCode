@@ -128,7 +128,7 @@
     mean = round(sum(test_rSquareds[d])/len(test_rSquared[d]),4)
     sd = round(numpy.std(rSquared[d], 4)    
 ```
-> which line explains better than the other?  
+> which line explains better than the other?  (Given that multiple trys) 
 > Highest average r-squared  
 > Smallest deviation across trials  
 > Simplest model  
