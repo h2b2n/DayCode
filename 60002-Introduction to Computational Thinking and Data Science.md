@@ -100,6 +100,7 @@
 ###### Cross Validate : generate models using one dataset and use it on another dataset  
 > To get how the model was validated
 > When fitting the one training data with noise and non-perfction, we can face over-fitting.  
+> https://scikit-learn.org/stable/modules/cross_validation.html  
 ###### Leave-one-out Cross Validation - K-fold
 > repeating random sampling
 ```python 
@@ -127,8 +128,39 @@
   for d in dimensions :
     mean = round(sum(test_rSquareds[d])/len(test_rSquared[d]),4)
     sd = round(numpy.std(rSquared[d], 4)    
+    
+  import numpy as np
+  from sklearn.model_selection import train_test_split
+  from sklearn.model_selection import KFold
+  X_train, X_test, y_train, y_test = train_test_split(xVals, yVals)
+  kf = KFold(n_splits=2)
+  kf.get_n_splits(X_train)
+  KFold(n_splits=2, random_state=None, shuffle=False)
 ```
 > which line explains better than the other?  (Given that multiple trys) 
 > Highest average r-squared  
 > Smallest deviation across trials  
 > Simplest model  
+# Lecture 13. Classification
+#### 1. Key Concepts
+###### a. Performance Measure
+> Accuracy  
+> Sensitivity(called Recall) = TP/(TP+FN)  
+> Specificity(called Precision) = TN/(TN+FP)  
+> Positive predictive value = TP/(TP+FP)  
+> Negative predictive value = TN/(TN+FN)  
+###### ? Data Split ?  
+###### b. Logistic Regression
+> predicting probability of an event  
+```python
+  import sklearn.linear_model import LogisticRegression
+  #Data Type : Dictionary, 
+  #data of training or test DataSet by using d.getFeatures() and d.getLabel()
+  LogitsticRegression = sklearn.linear_nodel.LogisticRegression
+  model = LogisticRegression().fit(featureVecs, labels)
+  
+  testFeatureVecs = [d.getFeatures() for d in testDataSet
+  probs = model.predict_proba(testFeatureVecs)
+  
+  #coef?
+```  
