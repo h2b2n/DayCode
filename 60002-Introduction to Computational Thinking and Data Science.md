@@ -137,7 +137,7 @@
   kf.get_n_splits(X_train)
   KFold(n_splits=2, random_state=None, shuffle=False)
 ```
-> which line explains better than the other?  (Given that multiple trys) 
+> which line explains better than the other?  (Given that multiple trys)  
 > Highest average r-squared  
 > Smallest deviation across trials  
 > Simplest model  
@@ -149,6 +149,7 @@
 > Specificity(called Precision) = TN/(TN+FP)  
 > Positive predictive value = TP/(TP+FP)  
 > Negative predictive value = TN/(TN+FN)  
+> https://scaryscientist.blogspot.com/2016/03/confusion-matrix.html?view=classic  
 ###### ? Data Split ?  
 ###### b. Logistic Regression
 > predicting probability of an event  
@@ -159,8 +160,48 @@
   LogitsticRegression = sklearn.linear_nodel.LogisticRegression
   model = LogisticRegression().fit(featureVecs, labels)
   
-  testFeatureVecs = [d.getFeatures() for d in testDataSet
+  testFeatureVecs = [d.getFeatures() for d in testDataSet]
   probs = model.predict_proba(testFeatureVecs)
   
   #coef?
 ```  
+# Lecture 14. Classification, Statistical Sins
+###### Key Concepts
+###### 1. Correlated Features  
+> When values are not independent  
+> The library 'SKlearn' use L2 regression as default by spreading weights equally across variables.  
+> Comprartively, There is L1 regression, which drives one variable to zero.  
+> Thus, regard the result of LR with correlated features, interpret the sign, +/-, instead of the weights itself.  
+###### 2. Deciding the cutoff  
+> We need to decide whether the used model is good or not, when we get the result, the higher accuracy and low sensitiviy.  
+> Depending on the case, use performance measure. And then graph the shape of all the possible cutoffs.  
+> Build one model with training dataset, and then keep testing the model with various probability.  
+``` python 
+  from sklearn.metrics import roc_curve  
+  from sklearn.metrics import roc_auc_score
+  
+  def buildROC(trainset, testset, title, plot= true):
+      model = buildModel(trainingSet, True)
+      xVals, yVals =[], []
+      p = 0.0
+      while p <= 1.0:
+        tp, fp, tn, fn = appplyModel(model, testSet, 'Survived', p)  
+        xVals.append(1.0 - specificity(tn, fp)
+        yVals.append(sensitivity(tp, fn))
+        p = p+0.01
+      auroc = sklearn.metrics.auc(xVals, yVals, True)
+      return auroc 
+   ### train_probs = tarin_probs[:, 1]
+   ### probs_auc = roc_auc_score(testFeatureVecs, train_probs)
+   ### print('Logistic: ROC AUC=%.3f' %probs_auc)
+   ### probs_fpr, probs_tpr, _ = roc_curve(testFeatureVecs, probs_auc)
+```
+>> ROC curves are used in clinical biochemistry to choose the most appropriate cut-off for a test. The best cut-off has the highest true positive rate together with the lowest false positive rate.  
+As the area under an ROC curve is a measure of the usefulness of a test in general, where a greater area means a more useful test, the areas under ROC curves are used to compare the usefulness of tests.
+  "https://acutecaretesting.org/en/articles/roc-curves-what-are-they-and-how-are-they-used"  
+###### 3. Twist of Stat. Is data itself worth analyzing?  
+###### a. Statistics, for instance summary of data can drive people to wrong result in that the dataset is the same as the other datasets. Thus, use "VISUALIZATION".  
+###### b. Comparing data, be carful at axes labels and scales.  
+###### c. Consider whether the things being compared are actually comparable  
+###### d. Data can be collected as convenience or non-represetative sampling. Non-response bias can be an example.  
+
